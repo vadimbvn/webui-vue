@@ -493,7 +493,32 @@
         "status": "Статус",
         "connected": "Подключено",
         "connecting": "Подключение",
-        "disconnected": "Отключено"
+        "disconnected": "Отключено",
+        "powerOnServer": "Включить сервер",
+        "powerOffServer": "Выключить сервер",
+        "virtualMedia": "Виртуальные носители",
+        "configureConnection": "Сконфигурировать соединение",
+        "defaultDeviceName": "Виртуальный носитель",
+        "start": "Старт",
+        "stop": "Стоп",
+        "virtualMediaSubTitleFirst": "Подключить образ с помощью веб браузера",
+        "virtualMediaSubTitleSecond": "Загрузить образ с внешнего сервера",
+        "modal": {
+            "password": "Пароль",
+            "serverUri": "URI Внешнего сервера",
+            "title": "Конфигурация Legacy режима",
+            "username": "Имя пользователя"
+        },
+        "toast": {
+            "errorMounting": "Ошибка монтирования",
+            "errorReadingFile": "Ошибка чтения файла. Закрытие подключения.",
+            "errorUnmounting": "Ошибка отмонтирования.",
+            "serverRunning": "Соединение установлено",
+            "serverConnectionEstablished": "Соединение установлено",
+            "serverClosedSuccessfully": "Соединение закрыто",
+            "serverClosedWithErrors": "Соединение разорвано",
+            "operationInProgress": "Выполняется операция управления электропитанием сервера"
+        }
     },
     "pageLdap": {
         "pageDescription": "Настройка параметров LDAP и управление группами",

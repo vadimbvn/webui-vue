@@ -493,7 +493,32 @@
         "status": "Status",
         "connected": "Connected",
         "connecting": "Connecting",
-        "disconnected": "Disconnected"
+        "disconnected": "Disconnected",
+        "powerOnServer": "Power on server",
+        "powerOffServer": "Power off server",
+        "virtualMedia": "Virtual media",
+        "configureConnection": "Configure Connection",
+        "defaultDeviceName": "Virtual media device",
+        "start": "Start",
+        "stop": "Stop",
+        "virtualMediaSubTitleFirst": "Load image from web browser",
+        "virtualMediaSubTitleSecond": "Load image from external server",
+        "modal": {
+            "password": "Password",
+            "serverUri": "External server URI",
+            "title": "Legacy mode configuration",
+            "username": "Username"
+        },
+        "toast": {
+            "errorMounting": "Error mounting",
+            "errorReadingFile": "Error reading file. Closing server.",
+            "errorUnmounting": "Error unmounting",
+            "serverRunning": "Server running",
+            "serverConnectionEstablished": "Server connection established",
+            "serverClosedSuccessfully": "Server closed successfully",
+            "serverClosedWithErrors": "Server closed with errors",
+            "operationInProgress": "There are no options to display while a power operation is in progress"
+        }
     },
     "pageLdap": {
         "pageDescription": "Configure LDAP settings and manage role groups",

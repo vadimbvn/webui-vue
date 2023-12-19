@@ -13,10 +13,10 @@
             </dd>
           </dl>
         </b-col>
-
         <b-col class="d-flex justify-content-end pr-1">
           <b-button
             v-if="isConnected"
+            size="sm"
             variant="link"
             type="button"
             @click="sendCtrlAltDel"
@@ -24,8 +24,26 @@
             <icon-arrow-down />
             {{ $t('pageKvm.buttonCtrlAltDelete') }}
           </b-button>
+          <template v-if="serverPower === 'off'">
+            <b-button size="sm" variant="link" type="button" @click="powerOn">
+              <icon-server-power-on />
+              {{ $t('pageKvm.powerOnServer') }}</b-button
+            >
+          </template>
+          <template v-else-if="serverPower === 'on'">
+            <b-button
+              size="sm"
+              variant="link"
+              type="button"
+              @click="shutdownServer"
+            >
+              <icon-server-power-off />
+              {{ $t('pageKvm.powerOffServer') }}</b-button
+            >
+          </template>
           <b-button
             v-if="!isFullWindow"
+            size="sm"
             variant="link"
             type="button"
             @click="openConsoleWindow()"
@@ -45,7 +63,10 @@ import RFB from '@novnc/novnc/core/rfb';
 import StatusIcon from '@/components/Global/StatusIcon';
 import IconLaunch from '@carbon/icons-vue/es/launch/20';
 import IconArrowDown from '@carbon/icons-vue/es/arrow--down/16';
+import IconServerPowerOff from '@carbon/icons-vue/es/power/20';
+import IconServerPowerOn from '@carbon/icons-vue/es/play--outline/20';
 import { throttle } from 'lodash';
+import BVToastMixin from '@/components/Mixins/BVToastMixin';
 
 const Connecting = 0;
 const Connected = 1;
@@ -53,7 +74,14 @@ const Disconnected = 2;
 
 export default {
   name: 'KvmConsole',
-  components: { StatusIcon, IconLaunch, IconArrowDown },
+  components: {
+    StatusIcon,
+    IconLaunch,
+    IconArrowDown,
+    IconServerPowerOn,
+    IconServerPowerOff,
+  },
+  mixins: [BVToastMixin],
   props: {
     isFullWindow: {
       type: Boolean,
@@ -87,6 +115,9 @@ export default {
         return this.$t('pageKvm.disconnected');
       }
       return this.$t('pageKvm.connecting');
+    },
+    serverPower() {
+      return this.$store.getters['global/serverStatus'];
     },
   },
   created() {
@@ -168,6 +199,14 @@ export default {
         'kvmConsoleWindow',
         'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=700,height=550'
       );
+    },
+    powerOn() {
+      this.$store.dispatch('controls/serverPowerOn');
+      this.infoToast(this.$t('pageKvm.toast.operationInProgress'));
+    },
+    shutdownServer() {
+      this.$store.dispatch('controls/serverSoftPowerOff');
+      this.infoToast(this.$t('pageKvm.toast.operationInProgress'));
     },
   },
 };
