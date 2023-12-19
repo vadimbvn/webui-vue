@@ -51,7 +51,7 @@ module.exports = {
         },
       },
     },
-    port: 2443,
+    port: 8000,
   },
   productionSourceMap: false,
   configureWebpack: (config) => {
