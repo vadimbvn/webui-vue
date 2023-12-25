@@ -42,7 +42,7 @@ module.exports = {
       '/': {
         target: process.env.BASE_URL,
         headers: {
-          Connection: 'keep-alive',
+          Connection: 'Upgrade',
         },
         onProxyRes: (proxyRes) => {
           // This header is ignored in the browser so removing
@@ -51,7 +51,7 @@ module.exports = {
         },
       },
     },
-    port: 8000,
+    port: 2443,
   },
   productionSourceMap: false,
   configureWebpack: (config) => {

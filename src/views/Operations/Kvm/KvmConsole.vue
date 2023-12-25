@@ -2,7 +2,7 @@
   <div :class="marginClass">
     <div ref="toolbar" class="kvm-toolbar">
       <b-row class="d-flex">
-        <b-col class="d-flex flex-column justify-content-end" cols="4">
+        <b-col class="d-flex flex-column justify-content-end" cols="3">
           <dl class="mb-2" sm="2" md="2">
             <dt class="d-inline font-weight-bold mr-1">
               {{ $t('pageKvm.status') }}:
@@ -25,13 +25,20 @@
             {{ $t('pageKvm.buttonCtrlAltDelete') }}
           </b-button>
           <template v-if="serverPower === 'off'">
-            <b-button size="sm" variant="link" type="button" @click="powerOn">
+            <b-button
+              v-show="isOperationInProgress"
+              size="sm"
+              variant="link"
+              type="button"
+              @click="powerOn"
+            >
               <icon-server-power-on />
               {{ $t('pageKvm.powerOnServer') }}</b-button
             >
           </template>
           <template v-else-if="serverPower === 'on'">
             <b-button
+              v-show="isOperationInProgress"
               size="sm"
               variant="link"
               type="button"
@@ -97,6 +104,7 @@ export default {
       status: Connecting,
       convasRef: null,
       resizeKvmWindow: null,
+      isOperationInProgress: true,
     };
   },
   computed: {
@@ -203,10 +211,26 @@ export default {
     powerOn() {
       this.$store.dispatch('controls/serverPowerOn');
       this.infoToast(this.$t('pageKvm.toast.operationInProgress'));
+      this.isOperationInProgress = false;
     },
     shutdownServer() {
-      this.$store.dispatch('controls/serverSoftPowerOff');
-      this.infoToast(this.$t('pageKvm.toast.operationInProgress'));
+      const modalMessage = this.$t(
+        'pageServerPowerOperations.modal.confirmShutdownMessage'
+      );
+      const modalOptions = {
+        title: this.$t('pageServerPowerOperations.modal.confirmShutdownTitle'),
+        okTitle: this.$t('global.action.confirm'),
+        cancelTitle: this.$t('global.action.cancel'),
+      };
+      this.$bvModal
+        .msgBoxConfirm(modalMessage, modalOptions)
+        .then((confirmed) => {
+          if (confirmed) {
+            this.$store.dispatch('controls/serverSoftPowerOff');
+            this.infoToast(this.$t('pageKvm.toast.operationInProgress'));
+            this.isOperationInProgress = false;
+          }
+        });
     },
   },
 };

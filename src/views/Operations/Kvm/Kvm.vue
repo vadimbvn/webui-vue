@@ -6,7 +6,7 @@
         <kvm-console :is-full-window="false" />
       </div>
     </page-section>
-    <page-section :section-title="$t('pageKvm.virtualMedia')" class="mb-1 mt-4">
+    <page-section :section-title="$t('pageKvm.virtualMedia')" class="mb-1 mt-5">
       <virtual-media />
     </page-section>
   </b-container>
@@ -26,6 +26,6 @@ export default {
 
 <style scoped>
 .terminal-container {
-  width: 100%;
+  width: 70%;
 }
 </style>
